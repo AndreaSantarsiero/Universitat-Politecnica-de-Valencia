@@ -11,7 +11,7 @@ const server = net.createServer( function(c) { //connection listener
  		const msg = data.toString();
  		let msgcopy = msg.split(" ");
  		var clientName = msgcopy[2];
- 		clientName = clientName.replace('.', '');
+ 		clientName = clientName.replace('\r\n', '');
  		
  		
  		process.stdout.write('- client message received: ' + msg);
