@@ -31,10 +31,15 @@ function sendConnectionRequest() {
     console.log('Richiesta di connessione a ' + remote_IP + ':' + remote_Port + ' inviata');
 }
 
+function createNewLoad(){
+    setInterval(() => { client.write(clientHola);}, 1000)
+}
+
 client.on('data', function(data) {
     process.stdout.write('Messaggio ricevuto dal server: ' + data.toString() + '\n');
-    client.end();
+    createNewLoad();    //da qui in avanti il client inizia a inviare un messaggio al secondo
 });
+
 
 client.on('end', function() {
     console.log('Client disconnesso');
