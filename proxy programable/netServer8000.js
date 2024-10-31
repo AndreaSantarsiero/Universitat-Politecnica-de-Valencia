@@ -1,6 +1,7 @@
 const net = require('net');
 const serverName = 'Paulo';
 
+
 const server = net.createServer( function(c) { //connection listener
 	console.log('server: client connected');
  	c.on('end', function() {
@@ -13,14 +14,13 @@ const server = net.createServer( function(c) { //connection listener
  		var clientName = msgcopy[2];
  		clientName = clientName.replace('\r\n', '');
  		
- 		
  		process.stdout.write('- client message received: ' + msg);
  		console.log('- client name: ' + clientName);
 		c.write('Hola ' + clientName + ', soy ' + serverName + '\r\n'); // send resp
- 		c.end(); // close socket
+ 		//c.end(); // close socket
  	});
 });
 
 server.listen(8000, function() { //listening listener
-	console.log('server bound');
+	console.log('server bound on port 8000');
 });

@@ -15,6 +15,7 @@ const programador = net.connect({ port: 8101 }, function() {
 });
 
 function askForRemoteSocket() {
+    console.log('type new server socket here:');
     rl.question('- remote_IP: ', (ipAnswer) => {
         remote_IP = ipAnswer;
         rl.question('- remote_Port: ', (portAnswer) => {
@@ -27,7 +28,8 @@ function askForRemoteSocket() {
 function sendConnectionRequest() {
     const msg = JSON.stringify({remote_IP, remote_Port});
     programador.write(msg);
-    console.log('Richiesta modifica socket remoto a ' + remote_IP + ':' + remote_Port + ' inviata');
+    console.log('Richiesta modifica socket remoto a ' + remote_IP + ':' + remote_Port + ' inviata\n');
+    askForRemoteSocket();
 }
 
 programador.on('data', function(data) {

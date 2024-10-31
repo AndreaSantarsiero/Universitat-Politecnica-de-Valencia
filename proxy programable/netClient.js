@@ -8,6 +8,7 @@ const rl = readline.createInterface({
 
 let remote_IP = '';
 let remote_Port = 0;
+let intervalId;
 
 
 const client = net.connect({ port: 8100 }, function() {
@@ -31,23 +32,35 @@ function sendConnectionRequest() {
     console.log('Richiesta di connessione a ' + remote_IP + ':' + remote_Port + ' inviata');
 }
 
-function createNewLoad(){
-    setInterval(() => { client.write(clientHola);}, 1000)
-}
 
 client.on('data', function(data) {
-    process.stdout.write('Messaggio ricevuto dal server: ' + data.toString() + '\n');
-    createNewLoad();    //da qui in avanti il client inizia a inviare un messaggio al secondo
+    try {
+        const response = JSON.parse(data.toString());
+        let remote_IP = response.remote_IP
+        let remote_Port = parseInt(response.remote_Port)
+        console.log(response.message + remote_IP + ':' + remote_Port)
+    } catch (error) {
+        process.stdout.write('Messaggio ricevuto dal server: ' + data.toString() + '\n');
+    }
+    
+    if (!intervalId) {    //avvio il timer solo se non è già attivo
+        intervalId = setInterval(() => {client.write(clientHola);}, 2500);
+    }
 });
+
 
 
 client.on('end', function() {
     console.log('Client disconnesso');
+    clearInterval(intervalId);    //fermo l'invio periodico di messaggi
+    intervalId = null; //resetto la variabile
     rl.close();
 });
 
+
 client.on('error', function(err) {
     console.log('Impossibile connettersi al proxy richiesto: ' + err);
+    clearInterval(intervalId);    //fermo l'invio periodico di messaggi
     rl.close();
 });
 
