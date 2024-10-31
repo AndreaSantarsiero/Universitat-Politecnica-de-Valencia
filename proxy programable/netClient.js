@@ -8,7 +8,6 @@ const rl = readline.createInterface({
 
 let remote_IP = '';
 let remote_Port = 0;
-let intervalId;
 
 
 const client = net.connect({ port: 8100 }, function() {
@@ -43,24 +42,19 @@ client.on('data', function(data) {
         process.stdout.write('Messaggio ricevuto dal server: ' + data.toString() + '\n');
     }
     
-    if (!intervalId) {    //avvio il timer solo se non è già attivo
-        intervalId = setInterval(() => {client.write(clientHola);}, 2500);
-    }
+    setTimeout(() => {client.write(clientHola);}, 2500);    //da qui in poi il client entra in loop e invia messaggi regolarmente
 });
 
 
 
 client.on('end', function() {
     console.log('Client disconnesso');
-    clearInterval(intervalId);    //fermo l'invio periodico di messaggi
-    intervalId = null; //resetto la variabile
     rl.close();
 });
 
 
 client.on('error', function(err) {
     console.log('Impossibile connettersi al proxy richiesto: ' + err);
-    clearInterval(intervalId);    //fermo l'invio periodico di messaggi
     rl.close();
 });
 
