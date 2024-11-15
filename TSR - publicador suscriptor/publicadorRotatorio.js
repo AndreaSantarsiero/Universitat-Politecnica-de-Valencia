@@ -1,6 +1,6 @@
 const {zmq, error, lineaOrdenes, traza, adios, creaPuntoConexion} = require('../tsr')
-let port = process.argv[2];
-let numMensajes = process.argv[3];
+let port = parseInt(process.argv[2]);
+let numMensajes = parseInt(process.argv[3]);
 let temas = process.argv.slice(4); //copio i temi (parametri dal 4 in poi) in un array
 
 var pub = zmq.socket('pub')
