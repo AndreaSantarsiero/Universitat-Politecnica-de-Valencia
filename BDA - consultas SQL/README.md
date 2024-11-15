@@ -1,5 +1,5 @@
 ## practica1: consultas SQL
-per maggiori info sulle basi di dati consultare il file 
+per maggiori info sulle basi di dati consultare il file [UD2.2.pdf](UD2.2.pdf)
 
 ## Bases de datos de musica
 prime quattro sessioni della practica 1 (1.1 - 1.4)
