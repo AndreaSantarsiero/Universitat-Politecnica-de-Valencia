@@ -33,9 +33,11 @@ La cartella del progetto include i seguenti file:
    node ProxyProg.js 9000 9001
    ```
 
-3. Avvia uno o più server remoti, ad esempio:
-   ```bash
+3. Avvia uno o più server remoti (meglio se in terminali diversi), ad esempio:
+   ```bash terminale 1
    node netServer8000.js
+   ```
+   ```bash terminale 2
    node netServer8001.js
    ```
 
