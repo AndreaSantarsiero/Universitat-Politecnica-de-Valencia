@@ -24,13 +24,13 @@ Un sistema basato sul pattern publisher/subscriber che consente a un publicador 
 ## Importante - File `tsr.js`
 
 Tutti i progetti di **TSR** (Tecnologìa de Sistemas de informaciòn en la Red) utilizzano il file **`tsr.js`**, che fornisce funzioni di supporto per la gestione delle connessioni e dei socket.  
-**Nota:** Per il corretto funzionamento dei progetti, il file `tsr.js` deve essere collocato nella stessa cartella dei file `.js` che lo utilizzano.
+**Nota:** Per il corretto funzionamento dei progetti, il file `tsr.js` deve essere collocato esternamente alla cartella contenente i file `.js` che lo utilizzano. In alternativa, è possibile cambiare il percorso modificando il percorso all'interno del codice sorgente.
 
 ---
 
 ## Licenza
 
-Questo repository è distribuito sotto la licenza [MIT](LICENSE). Sentiti libero di esplorare, modificare e riutilizzare il codice per scopi personali e accademici.
+Questo repository è distribuito sotto la licenza [GNU General Public License v3.0](LICENSE). Sentiti libero di esplorare, modificare e riutilizzare il codice per scopi personali e accademici.
 
 ---
 
