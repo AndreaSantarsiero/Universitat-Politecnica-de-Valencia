@@ -6,9 +6,10 @@ conecta(req, brokerHost, brokerPort)
 req.send(id)
 
 function procesaRespuesta(msg) {
-	traza('procesaRespuesta','msg',[msg])
+	traza('procesaRespuesta', 'msg', [msg])
 	adios([req], `Recibido: ${msg}. Adios`)()
 }
+
 req.on('message', procesaRespuesta)
 req.on('error', (msg) => {error(`${msg}`)})
 process.on('SIGINT', adios([req],"abortado con CTRL-C"))
