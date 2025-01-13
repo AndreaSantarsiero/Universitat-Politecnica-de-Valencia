@@ -1,7 +1,8 @@
 const {zmq, lineaOrdenes, traza, error, adios, creaPuntoConexion} = require('../tsr')
 lineaOrdenes("frontendPort backendPort")
-let workers  = [] // workers disponibles
+let workersDisponibles  = [] // workers disponibles
 let pendiente = [] // peticiones no enviadas a ningun worker
+let workers  = []
 let statistics = {}
 let frontend = zmq.socket('router')
 let backend  = zmq.socket('router')
@@ -12,8 +13,8 @@ creaPuntoConexion(backend,  backendPort)
 
 function procesaPeticion(cliente, sep, msg){
 	traza('procesaPeticion', 'cliente sep msg', [cliente, sep, msg])
-	if(workers.length){
-	    backend.send([workers.shift(), '', cliente, '', msg])
+	if(workersDisponibles.length){
+	    backend.send([workersDisponibles.shift(), '', cliente, '', msg])
 	}
 	else pendiente.push([cliente, msg])
 }
@@ -24,8 +25,9 @@ function procesaMsgWorker(worker, sep1, cliente, sep2, resp){
 	
     //il worker si è appena connesso
     if (cliente == ''){
-        statistics[worker] = 0
+        workersDisponibles.push(worker)
         workers.push(worker)
+        statistics[worker] = 0
         return
     }
 
@@ -37,7 +39,7 @@ function procesaMsgWorker(worker, sep1, cliente, sep2, resp){
 		let [c, m] = pendiente.shift()
 		backend.send([worker, '', c, '', m])
 	}
-	else workers.push(worker) // añadimos al worker como disponible
+	else workersDisponibles.push(worker) // añadimos al worker como disponible
 	if (cliente) frontend.send([cliente, '', resp]) // habia un cliente esperando esa respuesta
 }
 
