@@ -35,11 +35,9 @@ La cartella del progetto include i seguenti file:
 
 3. Avvia uno o più server remoti (meglio se in terminali diversi), ad esempio:
    ```bash
-   terminale 1
    node netServer8000.js
    ```
    ```bash
-   terminale 2
    node netServer8001.js
    ```
 
